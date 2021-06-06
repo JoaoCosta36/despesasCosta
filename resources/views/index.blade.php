@@ -88,16 +88,20 @@ $(document).ready(function(){
                 <th>ID</th>
                 <th>Despesa</th>
                 <th>Data</th>
+                <th>Total</th>
                 </tr>
                 </thead>
+                {{$total_value=0}}
             @foreach($query as $despesa)
             <tbody id="myTable">
             <tr  class="active-row">
                 <td >{{ $despesa->id }}</td>
-                <td>{{ $despesa->despesa }}</td>
+                <td id="despesa_value">{{ $despesa->despesa }}</td>
                 <td>{{ $despesa->data }}</td>
+                <td>{{$total_value += $despesa->despesa}}</td>
+               <!-- Total: {{$somadespesa= $despesa->despesa}} -->
             </tr>
-           
+            
             @endforeach
              </tbody>
             </table>
@@ -107,5 +111,4 @@ $(document).ready(function(){
         </div>
   
     </body>
-   
 </html>
