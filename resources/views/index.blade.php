@@ -2,6 +2,7 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -17,41 +18,44 @@
 
         <style>
         .styled-table {
-    border-collapse: collapse;
-    margin: 25px 0;
-    font-size: 0.9em;
-    font-family: sans-serif;
-    min-width: 400px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-}
-.styled-table thead tr {
-    background-color: #009879;
-    color: #ffffff;
-    text-align: left;
-}.styled-table th,
-.styled-table td {
-    text-align: center; 
-    padding: 12px 15px;
-}.styled-table tbody tr {
-    border-bottom: 1px solid #dddddd;
-}
+                    border-collapse: collapse;
+                    margin: 25px 0;
+                    font-size: 0.9em;
+                    font-family: sans-serif;
+                    min-width: 400px;
+                    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+                }
+                .styled-table thead tr {
+                    background-color: #009879;
+                    color: #ffffff;
+                    text-align: left;
+                }.styled-table th,
+                .styled-table td {
+                    text-align: center; 
+                    padding: 12px 15px;
+                }.styled-table tbody tr {
+                    border-bottom: 1px solid #dddddd;
+                }
 
-.styled-table tbody tr:nth-of-type(even) {
-    background-color: #f3f3f3;
-}
+                .styled-table tbody tr:nth-of-type(even) {
+                    background-color: #f3f3f3;
+                }
 
-.styled-table tbody tr:last-of-type {
-    border-bottom: 2px solid #009879;
-}.styled-table tbody tr.active-row {
-    font-weight: bold;
-    color: #009879;
-}
-            body {
-                font-family: 'Nunito';
-            }
+                .styled-table tbody tr:last-of-type {
+                    border-bottom: 2px solid #009879;
+                }.styled-table tbody tr.active-row {
+                    font-weight: bold;
+                    color: #009879;
+                }
+                            body {
+                                font-family: 'Nunito';
+                            }
         </style>
-        
+                        
        <script>
+
+
+
 $(document).ready(function(){
   $("#myInput").on("keyup", function() {
     var value = $(this).val().toLowerCase();
@@ -63,6 +67,33 @@ $(document).ready(function(){
 </script>
     </head>
     <body class="antialiased">
+    <form action="/" method="POST">
+    @csrf 
+            <strong>Banco:</strong>
+        
+            <select style="border: 0.5px solid black;" name="banco" id="banco">
+            @foreach($banco as $bancos)
+            <option value="{{$bancos->banco}}">{{$bancos->banco}}</option>
+            @endforeach
+            </select>
+           
+            <strong>Valor da despesa:</strong>
+            <input style="border: 0.5px solid black;" type="number" name="valor_despesa" class="form-control" placeholder="insira a despesa" required>
+            <strong>Categoria:</strong>
+        
+            <select style="border: 0.5px solid black;" name="categoria" >
+            @foreach($categorias as $categoria)
+            <option value="{{$categoria->category}}">{{$categoria->category}}</option>
+            @endforeach
+            </select>
+            <strong>Detalhe:</strong>
+            <input style="border: 0.5px solid black;" type="text" name="detalhe"  placeholder="Insira o detalhe" required>
+      
+    
+            <strong>Data:</strong>
+            <input style="border: 0.5px solid black;" type="date" name="date" placeholder="data" required>
+            <input style="border: 0.5px solid black;"  type="submit" value="Enviar">
+    </form>
         <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center sm:pt-0">
             @if (Route::has('login'))
                 <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
@@ -77,16 +108,15 @@ $(document).ready(function(){
                     @endauth
                 </div>
             @endif
-
-           
             <div id="table_id">
             <h2>Despesas Costa</h2>
             <input id="myInput" type="number" placeholder="Search by id">
             <table id="myUL" class="styled-table">         
                  <thead>
                 <tr>
-                <th>ID</th>
+                <th>Banco</th>
                 <th>Despesa</th>
+                <th>Detalhe</th>
                 <th>Data</th>
                 <th>Total</th>
                 </tr>
@@ -95,10 +125,11 @@ $(document).ready(function(){
             @foreach($query as $despesa)
             <tbody id="myTable">
             <tr  class="active-row">
-                <td >{{ $despesa->id }}</td>
+                <td >{{ $despesa->banco }}</td>
                 <td id="despesa_value">{{ $despesa->despesa }}</td>
+                <td>{{ $despesa->detalhe }}</td>
                 <td>{{ $despesa->data }}</td>
-                <td>{{$total_value += $despesa->despesa}}</td>
+                 <!-- <td >{{(int)$total_value += (int)$despesa->despesa}}</td>-->
                <!-- Total: {{$somadespesa= $despesa->despesa}} -->
             </tr>
             
@@ -109,6 +140,5 @@ $(document).ready(function(){
                 </div>
             </div>
         </div>
-  
     </body>
 </html>

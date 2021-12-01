@@ -10,4 +10,4 @@ Route::get('/', function () {
 */
 
 Route::get('/',[DatatablesController::class, 'index']);
-
+Route::post('/',[DatatablesController::class, 'insert']);

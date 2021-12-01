@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
-
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Http\Request;
-
+use Illuminate\Database\Eloquent\Model;
 class DatatablesController extends Controller
 {
     /**
@@ -15,8 +15,24 @@ class DatatablesController extends Controller
     public function index(Request $request)
     {
         $query = DB::table('despesas')->get();
+        $categorias = DB::table('categories')->get();
+        $banco = DB::table('banco')->get();
+        return view('index')->with('query',$query)->with('categorias',$categorias)->with('banco',$banco);
+    }
+    public function insert(Request $request)
+    {
+       //  dd($request->all());
+       $banco = $request->input('banco');
+       $detalhe = $request->input('detalhe');
+       $despesa = $request->input('despesa');
+       $categoria = $request->input('categoria');
+       $date = $request->input('data');
+       
+       $data=array('banco'=>$banco,"detalhe"=>$detalhe,"despesa"=>$despesa,"categoria"=>$categoria,"data"=>$date);
+       DB::table('despesas')->insert($data);
+        
 
-        return view('index')->with('query',$query);
+       return redirect()->back()->withSuccess('IT WORKS!');
     }
 
     /**
