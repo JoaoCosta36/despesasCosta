@@ -6,7 +6,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Despesas Costa</title>
+        <title>Dividas Costa</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
@@ -67,34 +67,26 @@ $(document).ready(function(){
 </script>
     </head>
     <body class="antialiased">
-    <form action="/" method="POST">
+       
+    <form action="/divida" method="POST">
     @csrf 
-            <strong>Banco:</strong>
-        
-            <select style="border: 0.5px solid black;" name="banco" id="banco">
-            @foreach($banco as $bancos)
-            <option value="{{$bancos->banco}}">{{$bancos->banco}}</option>
-            @endforeach
-            </select><p>
-           
-            <strong>Valor da despesa:</strong>
-            <input style="border: 0.5px solid black;" type="number" name="valor_despesa" class="form-control" placeholder="insira a despesa" required>
-            <p>
-            <strong>Categoria:</strong>
-            <select style="border: 0.5px solid black;" name="categoria" >
-            @foreach($categorias as $categoria)
-            <option value="{{$categoria->category}}">{{$categoria->category}}</option>
-            @endforeach
-            </select>
-            <p>
+            <strong>Nome:</strong>
+            <input style="border: 0.5px solid black;" type="text" name="nome" class="form-control" placeholder="insira o seu" required>
+            
             <strong>Detalhe:</strong>
-            <input style="border: 0.5px solid black;" type="text" name="detalhe"  placeholder="Insira o detalhe" required>
-            <p>
+            <input style="border: 0.5px solid black;" type="text" name="detalhe" class="form-control" placeholder="insira a detalhe" required>
+            
+            <strong>Valor da Divida:</strong>
+            <input style="border: 0.5px solid black;" type="text" name="divida" class="form-control" placeholder="insira a despesa" required>
+            
+            
             <strong>Data:</strong>
-            <input style="border: 0.5px solid black;" type="date" name="date" placeholder="data" required>
-            <p>
-            <input style="border: 0.5px solid black;"  type="submit" value="Enviar">
+            <input style="border: 0.5px solid black;" type="date" name="data" placeholder="data" required>
+            
+            <input style="border: 0.5px solid black;"  type="submit" value="Inserir">
     </form>
+
+
         <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center sm:pt-0">
             @if (Route::has('login'))
                 <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
@@ -110,6 +102,9 @@ $(document).ready(function(){
                 </div>
             @endif
             <div id="table_id">
+            <form action="/">
+            <button>Ver despesas gerais</button>
+            </form>
             <h2>Dividas Costa</h2>
             <input id="myInput" type="number" placeholder="Search by id">
             <table id="myUL" class="styled-table">         
@@ -127,11 +122,10 @@ $(document).ready(function(){
             <tbody id="myTable">
             <tr  class="active-row">
                 <td >{{ $dividas->detalhe }}</td>
-                <td id="despesa_value">{{ $dividas->valor }}</td>
+                <td id="dividas">{{ $dividas->valor }}</td>
                 <td>{{ $dividas->nome }}</td>
                 <td>{{ $dividas->data }}</td>
-                 <!-- <td >{{(int)$total_value += (int)$despesa->despesa}}</td>-->
-               <!-- Total: {{$somadespesa= $despesa->despesa}} -->
+                <td>{{$total_value +=(double)$dividas->valor}}
             </tr>
             
             @endforeach

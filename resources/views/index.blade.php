@@ -17,16 +17,7 @@
         </style>
 
         <style>
-            #divida:hover{
-                background-color:yellow;
-                cursor: pointer;
-            }
-            #divida{
-               margin-top:10px;
-               width:10%; 
-               height:70px; 
-               border-radius:30%;
-            }
+           
         .styled-table {
                     border-collapse: collapse;
                     margin: 25px 0;
@@ -134,10 +125,10 @@ $(document).ready(function(){
                 <th>Despesa</th>
                 <th>Detalhe</th>
                 <th>Data</th>
-                <th>Total</th>
+               
                 </tr>
                 </thead>
-                {{$total_value=0}}
+                <!-- {{$total_value=0}}-->
             @foreach($query as $despesa)
             <tbody id="myTable">
             <tr  class="active-row">

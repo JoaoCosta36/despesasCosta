@@ -41,17 +41,16 @@ class DatatablesController extends Controller
        $query = DB::table('dividas')->get();
         $categorias = DB::table('categories')->get();
         $banco = DB::table('banco')->get();
-        return view('index')->with('query',$query)->with('categorias',$categorias)->with('banco',$banco);
+        return view('divida')->with('query',$query);
         
 
-       return view('divida');
     }
     public function post_dividas(Request $request)
     {
-       //  dd($request->all());
+        // dd($request->all());
    
        $detalhe = $request->input('detalhe');
-       $valor = $request->input('valor');
+       $valor = $request->input('divida');
        $nome = $request->input('nome');
        $date = $request->input('data');
        
@@ -59,7 +58,7 @@ class DatatablesController extends Controller
        DB::table('dividas')->insert($data);
         
 
-       return view('divida');
+       return redirect()->back()->withSuccess('IT WORKS!');
     }
     /**
      * Show the form for creating a new resource.
