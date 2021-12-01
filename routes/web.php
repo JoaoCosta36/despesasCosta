@@ -11,3 +11,5 @@ Route::get('/', function () {
 
 Route::get('/',[DatatablesController::class, 'index']);
 Route::post('/',[DatatablesController::class, 'insert']);
+Route::get('/divida',[DatatablesController::class, 'get_dividas']);
+Route::post('/divida',[DatatablesController::class, 'post_dividas']);

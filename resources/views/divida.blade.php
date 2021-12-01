@@ -17,16 +17,6 @@
         </style>
 
         <style>
-            #divida:hover{
-                background-color:yellow;
-                cursor: pointer;
-            }
-            #divida{
-               margin-top:10px;
-               width:10%; 
-               height:70px; 
-               border-radius:30%;
-            }
         .styled-table {
                     border-collapse: collapse;
                     margin: 25px 0;
@@ -85,26 +75,26 @@ $(document).ready(function(){
             @foreach($banco as $bancos)
             <option value="{{$bancos->banco}}">{{$bancos->banco}}</option>
             @endforeach
-            </select>
+            </select><p>
            
             <strong>Valor da despesa:</strong>
             <input style="border: 0.5px solid black;" type="number" name="valor_despesa" class="form-control" placeholder="insira a despesa" required>
+            <p>
             <strong>Categoria:</strong>
-        
             <select style="border: 0.5px solid black;" name="categoria" >
             @foreach($categorias as $categoria)
             <option value="{{$categoria->category}}">{{$categoria->category}}</option>
             @endforeach
             </select>
+            <p>
             <strong>Detalhe:</strong>
             <input style="border: 0.5px solid black;" type="text" name="detalhe"  placeholder="Insira o detalhe" required>
-      
-    
+            <p>
             <strong>Data:</strong>
             <input style="border: 0.5px solid black;" type="date" name="date" placeholder="data" required>
+            <p>
             <input style="border: 0.5px solid black;"  type="submit" value="Enviar">
     </form>
-    
         <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center sm:pt-0">
             @if (Route::has('login'))
                 <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
@@ -119,32 +109,27 @@ $(document).ready(function(){
                     @endauth
                 </div>
             @endif
-
-            
             <div id="table_id">
-            <form action="/divida" method="GET">
-                <input id="divida"  type="submit" value="Dividas">
-            </form>
-            <h2>Despesas Costa</h2>
+            <h2>Dividas Costa</h2>
             <input id="myInput" type="number" placeholder="Search by id">
             <table id="myUL" class="styled-table">         
                  <thead>
                 <tr>
-                <th>Banco</th>
-                <th>Despesa</th>
                 <th>Detalhe</th>
+                <th>Valor</th>
+                <th>Nome</th>
                 <th>Data</th>
-                <th>Total</th>
+                <th>Total em Divida</th>
                 </tr>
                 </thead>
                 {{$total_value=0}}
-            @foreach($query as $despesa)
+            @foreach($query as $dividas)
             <tbody id="myTable">
             <tr  class="active-row">
-                <td >{{ $despesa->banco }}</td>
-                <td id="despesa_value">{{ $despesa->despesa }}</td>
-                <td>{{ $despesa->detalhe }}</td>
-                <td>{{ $despesa->data }}</td>
+                <td >{{ $dividas->detalhe }}</td>
+                <td id="despesa_value">{{ $dividas->valor }}</td>
+                <td>{{ $dividas->nome }}</td>
+                <td>{{ $dividas->data }}</td>
                  <!-- <td >{{(int)$total_value += (int)$despesa->despesa}}</td>-->
                <!-- Total: {{$somadespesa= $despesa->despesa}} -->
             </tr>
