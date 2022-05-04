@@ -102,8 +102,11 @@ $(document).ready(function(){
                 </div>
             @endif
             <div id="table_id">
-            <form action="/">
+            <form action="/" method="GET">
             <button>Ver despesas gerais</button>
+            </form>
+            <form action="/wishlist" method="GET">
+            <button>Wishlist</button>
             </form>
             <h2>Dividas Costa</h2>
             <input id="myInput" type="number" placeholder="Search by id">

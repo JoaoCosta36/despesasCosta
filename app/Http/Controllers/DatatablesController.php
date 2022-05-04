@@ -55,7 +55,34 @@ class DatatablesController extends Controller
        $date = $request->input('data');
        
        $data=array("detalhe"=>$detalhe,"valor"=>$valor,"nome"=>$nome,"data"=>$date);
-       DB::table('dividas')->insert($data);
+       DB::table('wishlist')->insert($data);
+        
+
+       return redirect()->back()->withSuccess('IT WORKS!');
+    }
+    public function get_wishlist(Request $request)
+    {
+       //  dd($request->all());
+   
+        $query = DB::table('wishlist')->get();
+        $categorias = DB::table('categories')->get();
+        $banco = DB::table('banco')->get();
+        return view('wishlist')->with('query',$query);
+        
+
+    }
+    public function post_wishlist(Request $request)
+    {
+         //dd($request->all());
+         //dd($_FILES);
+       $detalhe = $request->input('detalhe');
+       $valor = $request->input('divida');
+       $nome = $request->input('nome');
+       $date = $request->input('data');
+       $path = $request->file('image')->store('public/images');
+       
+       $data=array("detalhe"=>$detalhe,"valor"=>$valor,"nome"=>$nome,"data"=>$date,"image"=>$path);
+       DB::table('wishlist')->insert($data);
         
 
        return redirect()->back()->withSuccess('IT WORKS!');
